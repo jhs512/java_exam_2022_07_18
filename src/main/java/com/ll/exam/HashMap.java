@@ -1,9 +1,7 @@
 package com.ll.exam;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class HashMap<K, V> {
     private Object[] keys;
@@ -12,8 +10,8 @@ public class HashMap<K, V> {
 
     HashMap() {
         size = 0;
-        keys = new Object[100];
-        values = new Object[100];
+        keys = new Object[2];
+        values = new Object[keys.length];
     }
 
     public void put(K key, V value) {
@@ -24,10 +22,27 @@ public class HashMap<K, V> {
             return;
         }
 
+        sizeUpArrWhenFull();
+
         keys[size] = key;
         values[size] = value;
 
         size++;
+    }
+
+    private void sizeUpArrWhenFull() {
+        if (isFull()) {
+            sizeUpArr();
+        }
+    }
+
+    private void sizeUpArr() {
+        keys = Util.arr.sizeUp(keys);
+        values = Util.arr.sizeUp(values);
+    }
+
+    private boolean isFull() {
+        return size == keys.length;
     }
 
     private int indexOfKey(K key) {
@@ -61,23 +76,18 @@ public class HashMap<K, V> {
             return;
         }
 
-        moveLeft(keys, keyIndex + 1, size - 1);
-        moveLeft(values, keyIndex + 1, size - 1);
+        Util.arr.moveLeft(keys, keyIndex + 1, size - 1);
+        Util.arr.moveLeft(values, keyIndex + 1, size - 1);
 
         size--;
     }
 
-    private void moveLeft(Object[] arr, int fromIndex, int toIndex) {
-        for (int i = fromIndex; i <= toIndex; i++) {
-            arr[i - 1] = arr[i];
-        }
-    }
 
     public List<K> keySet() {
         List<K> keySet = new ArrayList<>();
 
-        for ( int i = 0; i < size; i++ ) {
-            keySet.add((K)keys[i]);
+        for (int i = 0; i < size; i++) {
+            keySet.add((K) keys[i]);
         }
 
         return keySet;

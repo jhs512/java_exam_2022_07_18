@@ -3,6 +3,7 @@ package com.ll.exam;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -109,6 +110,16 @@ class HashMapTest {
 
         a원숭이_키키.묘기를_부리다();
         a사람_존.말하다();
+    }
+
+    @Test
+    void 배열의_크기가_적당히_늘어나는지() {
+        HashMap<String, Integer> ages = new HashMap<>();
+
+        // 1 부터 100까지 반복
+        IntStream.rangeClosed(1, 100).forEach((i) -> {
+            ages.put("사람_%d".formatted(i), i);
+        });
     }
 }
 
