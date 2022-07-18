@@ -1,5 +1,10 @@
 package com.ll.exam;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class HashMap<K, V> {
     private Object[] keys;
     private Object[] values;
@@ -66,5 +71,15 @@ public class HashMap<K, V> {
         for (int i = fromIndex; i <= toIndex; i++) {
             arr[i - 1] = arr[i];
         }
+    }
+
+    public List<K> keySet() {
+        List<K> keySet = new ArrayList<>();
+
+        for ( int i = 0; i < size; i++ ) {
+            keySet.add((K)keys[i]);
+        }
+
+        return keySet;
     }
 }
